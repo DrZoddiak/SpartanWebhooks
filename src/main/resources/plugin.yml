@@ -1,0 +1,5 @@
+name: SpartanWebhooks
+version: 2.0
+authors: [ bobby29831 ]
+description: Adds webhook support to the popular Minecraft Anti-Cheat called Spartan
+main: net.ecoporium.spartan.SpartanWebhooks

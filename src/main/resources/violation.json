@@ -1,0 +1,52 @@
+{
+  "content": "",
+  "embed": {
+    "title": "{violator} - Violation",
+    "description": "These webhooks are managed and sent by [Spartan Webhooks](https://github.com/bobby29831/SpartanWebhooks).",
+    "url": "https://namemc.com/profile/{violator_uuid}",
+    "color": 7791085,
+    "timestamp": "{currentTime}",
+    "footer": {
+      "icon_url": "",
+      "text": "Spartan Webhooks is maintained by bobby29831"
+    },
+    "thumbnail": {
+      "url": ""
+    },
+    "image": {
+      "url": ""
+    },
+    "author": {
+      "name": "",
+      "url": "",
+      "icon_url": ""
+    },
+    "fields": [
+      {
+        "name": "`Violator Unique Id`",
+        "value": "{violator_uuid}",
+        "inline": true
+      },
+      {
+        "name": "`Hack Type`",
+        "value": "{type}",
+        "inline": true
+      },
+      {
+        "name": "`Current Violations`",
+        "value": "{violations}",
+        "inline": false
+      },
+      {
+        "name": "`Total Violations`",
+        "value": "{totalViolations}",
+        "inline": true
+      },
+      {
+        "name": "`Information`",
+        "value": "{information}",
+        "inline": false
+      }
+    ]
+  }
+}

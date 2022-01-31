@@ -5,11 +5,16 @@ mainly in the Kotlin language for ease for programming.
 However, it will include many new features which are attractive:
   * JSON based embed configuration
     * Popular builders like [this one](https://glitchii.github.io/embedbuilder/) can now be utilized
+    * Supports non-embed messages too!
   * Custom Discord API for sending Webhooks
-    * No longer bloats the file size by relying on a comprehensive API to do one simple task
+    * Only includes what is necessary
     * Better control and prevention of 429 (rate-limiting errors)
-  * Only one webhook is sent per faucet instance per user
-    * This is a little wordy, but it essentially means that you'll have a lot less webhooks sent (also limits 429s)
+  * Only one webhook is sent per user every few seconds
+    * Limits 429s and makes it easier to keep track of messages
+  * More configuration options & cleaner configuration
+    * Change how often a user's webhook is sent
+    * No more hunting for essential fields to modify
+    * Toggle if certain checks report to webhooks
   * And many, many more to come!
 
 This newer version will also rely on Paper, instead of Spigot in

@@ -1,4 +1,4 @@
-package net.ecoporium.spartan.model
+package net.ecoporium.spartan.model.webhook
 
 
 import com.google.gson.annotations.SerializedName

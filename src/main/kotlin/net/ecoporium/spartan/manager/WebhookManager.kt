@@ -2,28 +2,33 @@ package net.ecoporium.spartan.manager
 
 import com.google.gson.Gson
 import net.ecoporium.spartan.SpartanWebhooks
-import net.ecoporium.spartan.model.Webhook
+import net.ecoporium.spartan.model.webhook.Webhook
+import net.ecoporium.spartan.model.webhook.WebhookType
 import java.io.File
 import java.io.FileReader
+import java.net.URL
+import java.util.*
+import javax.net.ssl.HttpsURLConnection
 
 class WebhookManager(private val plugin: SpartanWebhooks) {
 
     private val paths = listOf("violation.json")
-    var webhooks = emptyList<Webhook>()
+    var webhooks = emptyMap<WebhookType, Webhook>()
 
     /**
      * Loads all webhooks and updates their variables from the JSON files
      */
     fun loadWebhooks() {
         if (!checkFileExistence()) return
-        val mutableWebhooks = mutableListOf<Webhook>()
+        val mutableWebhooks = mutableMapOf<WebhookType, Webhook>()
         val gson = Gson()
 
         for (path in paths) {
             val file = File(plugin.dataFolder.path + path)
-            mutableWebhooks.add(gson.fromJson(FileReader(file), Webhook::class.java))
+            val type = WebhookType.valueOf(path.removeSuffix(".json").uppercase(Locale.getDefault()))
+            mutableWebhooks[type] = gson.fromJson(FileReader(file), Webhook::class.java)
         }
-        webhooks = mutableWebhooks.toList()
+        webhooks = mutableWebhooks.toMap()
     }
 
     /**
@@ -39,6 +44,31 @@ class WebhookManager(private val plugin: SpartanWebhooks) {
             }
         }
         return exists
+    }
+
+    /**
+     * Sends a webhook with the given webhook type and URL
+     */
+    fun sendWebhook(type: WebhookType, url: URL) {
+        val webhook = webhooks[type]
+        if (webhook == null) {
+            plugin.logger.severe("Attempted to send webhook, but could not find webhook with path '$type'")
+            return
+        }
+
+        val connection = url.openConnection() as HttpsURLConnection
+        connection.addRequestProperty("Content-Type", "application/json")
+        connection.addRequestProperty("User-Agent", "SpartanWebhooks")
+        connection.doOutput = true
+        connection.requestMethod = "POST"
+
+        val stream = connection.outputStream
+        stream.write(Gson().toJson(webhook).toByteArray())
+        stream.flush()
+        stream.close()
+
+        connection.inputStream.close()
+        connection.disconnect()
     }
 
 }

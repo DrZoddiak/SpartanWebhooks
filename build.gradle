@@ -1,5 +1,6 @@
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 group "net.ecoporium.spartan"
@@ -8,18 +9,28 @@ version "2.0-SNAPSHOT"
 repositories {
     mavenCentral()
     mavenLocal()
+
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
-    maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
+    maven { url = uri("https://repo.triumphteam.dev/snapshots/") }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "dev.triumphteam:triumph-cmd-bukkit:2.0.0-SNAPSHOT"
 
     compileOnly "io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT"
-    compileOnly "me.clip:placeholderapi:2.11.1"
     compileOnly files("libs/Spartan.jar")
+}
+
+jar {
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+shadowJar {
+    relocate "dev.triumphteam.cmd", "${project.group}.cmd"
 }

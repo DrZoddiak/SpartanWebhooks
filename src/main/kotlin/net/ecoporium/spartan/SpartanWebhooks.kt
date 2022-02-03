@@ -1,7 +1,10 @@
 package net.ecoporium.spartan
 
+import dev.triumphteam.cmd.bukkit.BukkitCommandManager
+import net.ecoporium.spartan.command.WebhooksCommand
 import net.ecoporium.spartan.listener.ViolationHandler
 import net.ecoporium.spartan.manager.WebhookManager
+import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 
 class SpartanWebhooks: JavaPlugin() {
@@ -12,7 +15,7 @@ class SpartanWebhooks: JavaPlugin() {
 
     override fun onEnable() {
 
-        if (server.pluginManager.isPluginEnabled("Spartan")) {
+        if (!server.pluginManager.isPluginEnabled("Spartan")) {
             logger.severe("The Spartan Anti-Cheat plugin was not located.")
             logger.severe("SpartanWebhooks cannot function properly without it.")
             server.pluginManager.disablePlugin(this)
@@ -20,15 +23,22 @@ class SpartanWebhooks: JavaPlugin() {
         }
 
         webhookManager = WebhookManager(this)
-        webhookManager.loadWebhooks()
+
+        /*webhookManager.loadWebhooks()
         if (webhookManager.webhooks.isEmpty()) {
             logger.severe("Could not locate any file configurations for webhooks!")
             server.pluginManager.disablePlugin(this)
             return
-        }
+        }*/
 
         server.pluginManager.registerEvents(ViolationHandler(), this)
+        this.loadCommands()
 
+    }
+
+    private fun loadCommands() {
+        val commandManager: BukkitCommandManager<CommandSender> = BukkitCommandManager.create(this)
+        commandManager.registerCommand(WebhooksCommand())
     }
 
 }

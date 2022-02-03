@@ -15,6 +15,15 @@ class WebhookManager(private val plugin: SpartanWebhooks) {
     private val paths = listOf("violation.json")
     var webhooks = emptyMap<WebhookType, Webhook>()
 
+    init {
+        val dataFolder = plugin.dataFolder
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir()
+            val file = File(dataFolder, "violation.json")
+            file.createNewFile()
+        }
+    }
+
     /**
      * Loads all webhooks and updates their variables from the JSON files
      */

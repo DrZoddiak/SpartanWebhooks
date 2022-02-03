@@ -1,11 +1,14 @@
 package net.ecoporium.spartan
 
+import net.ecoporium.spartan.listener.ViolationHandler
 import net.ecoporium.spartan.manager.WebhookManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class SpartanWebhooks: JavaPlugin() {
 
-    lateinit var webhookManager: WebhookManager
+    companion object {
+        lateinit var webhookManager: WebhookManager
+    }
 
     override fun onEnable() {
 
@@ -23,6 +26,8 @@ class SpartanWebhooks: JavaPlugin() {
             server.pluginManager.disablePlugin(this)
             return
         }
+
+        server.pluginManager.registerEvents(ViolationHandler(), this)
 
     }
 

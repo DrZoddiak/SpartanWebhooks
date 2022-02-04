@@ -15,16 +15,11 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "dev.triumphteam:triumph-cmd-bukkit:2.0.0-SNAPSHOT"
 
     compileOnly "io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT"
     compileOnly files("libs/Spartan.jar")
-}
-
-jar {
-    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 java {
@@ -33,4 +28,5 @@ java {
 
 shadowJar {
     relocate "dev.triumphteam.cmd", "${project.group}.cmd"
+    relocate "org.jetbrains.kotlin", "${project.group}.kotlin"
 }

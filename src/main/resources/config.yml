@@ -1,0 +1,43 @@
+# In this version, violations are sent in the same embed, so only one URL field here!
+webhook-url: ""
+
+violations: # These are violations that when enabled, will send info to be reported in webhooks
+  exploits: true
+  entity-move: true
+  no-swing: true
+  irregular-movements: true
+  clip: true
+  impossible-actions: true
+  item-drops: true
+  auto-respawn: true
+  inventory-clicks: true
+  sprint: true
+  jesus: true
+  no-slowdown: true
+  criticals: true
+  ghost-hand: true
+  block-reach: true
+  elytra-move: true
+  fast-bow: true
+  fast-clicks: true
+  fast-heal: true
+  impossible-inventory: true
+  hit-reach: true
+  fast-break: true
+  speed: true
+  fast-place: true
+  more-packets: true
+  no-fall: true
+  fast-eat: true
+  velocity: true
+  kill-aura: true
+  found-coal: true
+  found-copper: true
+  found-iron: true
+  found-lapis: true
+  found-redstone: true
+  found-gold: true
+  found-emerald: true
+  found-diamond: true
+  found-nether-quartz: true
+  found-ancient-debris: true

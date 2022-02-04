@@ -12,7 +12,7 @@ class ViolationHandler: Listener {
 
     @EventHandler
     fun onViolation(event: PlayerViolationEvent) {
-        SpartanWebhooks.webhookManager.sendWebhook(
+        SpartanWebhooks.instance.webhookManager.sendWebhook(
             WebhookType.VIOLATION,
             URL("To be received via configuration")
         )
@@ -20,7 +20,7 @@ class ViolationHandler: Listener {
 
     @EventHandler
     fun onFoundOre(event: PlayerFoundOreEvent) {
-        SpartanWebhooks.webhookManager.sendWebhook(
+        SpartanWebhooks.instance.webhookManager.sendWebhook(
             WebhookType.FOUND_ORE,
             URL("To be received via configuration")
         )
